@@ -7,10 +7,31 @@ const config = require('../config/database');
 //User Schema
 const UserSchema = mongoose.Schema({
 
-    name: {
-        type: String
+    firstname: {
+        type: String,
+        required: true
+    },
+    lastname: {
+        type: String,
+        required: true
     },
     email: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    area: {
+        type: String,
+        required: true
+    },
+    city: {
         type: String,
         required: true
     },
@@ -35,7 +56,9 @@ module.exports.getUserById = function(id, callback) {
 }
 
 module.exports.getUserByUsername = function(username, callback) {
-    const query = { username: new RegExp(username, "i") }
+    const query = {
+        username: new RegExp(username, "i")
+    }
     User.findOne(query, callback);
 }
 
@@ -57,7 +80,9 @@ module.exports.comparePassword = function(candidatePassword, hash, callback) {
     });
 }
 module.exports.checkUsername = function(user, callback) {
-    User.count({ 'username': new RegExp(user, "i") }).count(callback);
+    User.count({
+        'username': new RegExp(user, "i")
+    }).count(callback);
 }
 
 module.exports.changePassword = function(id, newPassword, callback) {
@@ -65,7 +90,9 @@ module.exports.changePassword = function(id, newPassword, callback) {
         bcrypt.hash(newPassword, salt, (err, hash) => {
             if (err) throw err;
             newPassword = hash;
-            User.findByIdAndUpdate(id, { password: newPassword }, callback);
+            User.findByIdAndUpdate(id, {
+                password: newPassword
+            }, callback);
         });
     });
 }

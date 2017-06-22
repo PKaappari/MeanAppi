@@ -15,6 +15,7 @@ router.post('/addevent', (req, res, next) => {
         title: req.body.title,
         start: req.body.start,
         end: req.body.end,
+        rekisteriNro: req.body.rekisteriNro,
         backgroundColor: req.body.backgroundColor,
         description: req.body.description,
         confirm: false,
@@ -25,7 +26,7 @@ router.post('/addevent', (req, res, next) => {
         if (err) {
             res.json({ success: false, msg: err.errors.title.message });
         } else {
-            res.json({ success: true, msg: 'Event Updated' });
+            res.json({ success: true, msg: 'Tapahtuman lisääminen onnistui' });
         }
     });
 });
